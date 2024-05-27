@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -25,47 +27,40 @@ class MainActivity : ComponentActivity() {
 		setContent {
 			BasicCodeLabTheme {
 				Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-					Greeting(
-						name = "Android",
-						modifier = Modifier.padding(innerPadding)
-					)
+					MyApp()
 				}
 			}
 		}
 	}
-}
 
 
-
-@Composable
-fun MyApp(
-	modifier: Modifier = Modifier,
-	names: List<String> = listOf("World", "Compose")
-) {
-	Column(modifier = modifier.padding(vertical = 4.dp)) {
-		for (name in names) {
-			Greeting(name = name)
-		}
-	}
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-	Surface(
-		color = MaterialTheme.colorScheme.primary,
-		modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+	@Composable
+	fun MyApp(
+		modifier: Modifier = Modifier,
+		names: List<String> = listOf("World", "Compose")
 	) {
-		Column(modifier = Modifier.fillMaxWidth().padding(24.dp)) {
-			Text(text = "Hello ")
-			Text(text = name)
+		Column(modifier) {
+			for (name in names) {
+				Greeting(name = name)
+			}
 		}
 	}
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-	BasicCodeLabTheme {
-		Greeting("Android")
+	@Composable
+	fun Greeting(name: String, modifier: Modifier = Modifier) {
+		Surface(color = MaterialTheme.colorScheme.primary) {
+			Column(modifier = modifier.padding(24.dp)) {
+				Text(text = "Hello ")
+				Text(text = name)
+			}
+		}
+	}
+
+	@Preview(showBackground = true)
+	@Composable
+	fun GreetingPreview() {
+		BasicCodeLabTheme {
+			MyApp()
+		}
 	}
 }
