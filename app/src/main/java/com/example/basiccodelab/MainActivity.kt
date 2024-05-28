@@ -48,10 +48,20 @@ class MainActivity : ComponentActivity() {
 
 	@Composable
 	fun Greeting(name: String, modifier: Modifier = Modifier) {
-		Surface(color = MaterialTheme.colorScheme.primary) {
-			Column(modifier = modifier.padding(24.dp)) {
-				Text(text = "Hello ")
-				Text(text = name)
+		Surface(
+			color = MaterialTheme.colorScheme.primary,
+			modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+		) {
+			Row(modifier = Modifier.padding(24.dp)) {
+				Column(modifier = Modifier.weight(1f)) {
+					Text(text = "Hello ")
+					Text(text = name)
+				}
+				ElevatedButton(
+					onClick = { /* TODO */ }
+				) {
+					Text("Show more")
+				}
 			}
 		}
 	}
