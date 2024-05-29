@@ -28,9 +28,8 @@ class MainActivity : ComponentActivity() {
 		enableEdgeToEdge()
 		setContent {
 			BasicCodeLabTheme {
-				Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-					MyApp()
-				}
+				MyApp()
+
 			}
 		}
 	}
@@ -73,6 +72,7 @@ class MainActivity : ComponentActivity() {
 			}
 		}
 	}
+
 	@Preview(showBackground = true)
 	@Composable
 	fun GreetingPreview() {
