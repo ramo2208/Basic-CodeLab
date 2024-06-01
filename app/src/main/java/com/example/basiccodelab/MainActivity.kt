@@ -39,96 +39,105 @@ class MainActivity : ComponentActivity() {
 			}
 		}
 	}
+}
 
-	@Composable
-	fun MyApp(modifier: Modifier = Modifier) {
 
-		var shouldShowOnboarding by remember { mutableStateOf(true) }
+@Composable
+fun MyApp(modifier: Modifier = Modifier) {
 
-		Surface(modifier) {
-			if (shouldShowOnboarding) {
-				OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-			} else {
-				Greetings()
-			}
-		}
-	}
+	var shouldShowOnboarding by remember { mutableStateOf(true) }
 
-	@Composable
-	fun OnboardingScreen(
-		onContinueClicked: () -> Unit,
-		modifier: Modifier = Modifier
-	) {
-
-		Column(
-			modifier = modifier.fillMaxSize(),
-			verticalArrangement = Arrangement.Center,
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
-			Text("Welcome to the Basics Code lab!")
-			Button(
-				modifier = Modifier.padding(vertical = 24.dp),
-				onClick = onContinueClicked
-			) {
-				Text("Continue")
-			}
-		}
-	}
-
-	@Composable
-	private fun Greetings(
-		modifier: Modifier = Modifier,
-		names: List<String> = listOf("World", "Compose")
-	) {
-		Column(modifier = modifier.padding(vertical = 4.dp)) {
-			for (name in names) {
-				Greeting(name = name)
-			}
-		}
-	}
-
-	@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-	@Composable
-	fun OnboardingPreview() {
-		BasicCodeLabTheme {
-			OnboardingScreen(onContinueClicked = {})
-		}
-	}
-
-	@Composable
-	fun Greeting(name: String, modifier: Modifier = Modifier) {
-
-		var expanded by remember { mutableStateOf(false) }
-
-		val extraPadding = if (expanded) 48.dp else 0.dp
-
-		Surface(
-			color = MaterialTheme.colorScheme.primary,
-			modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-		) {
-			Row(modifier = Modifier.padding(24.dp)) {
-				Column(
-					modifier = Modifier
-						.weight(1f)
-						.padding(bottom = extraPadding)
-				) {
-					Text(text = "Hello, ")
-					Text(text = name)
-				}
-				ElevatedButton(
-					onClick = { expanded = !expanded }
-				) {
-					Text(if (expanded) "Show less" else "Show more")
-				}
-			}
-		}
-	}
-
-	@Preview(showBackground = true, widthDp = 320)
-	@Composable
-	fun GreetingPreview() {
-		BasicCodeLabTheme {
+	Surface(modifier) {
+		if (shouldShowOnboarding) {
+			OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+		} else {
 			Greetings()
 		}
+	}
+}
+
+@Composable
+fun OnboardingScreen(
+	onContinueClicked: () -> Unit,
+	modifier: Modifier = Modifier
+) {
+
+	Column(
+		modifier = modifier.fillMaxSize(),
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.CenterHorizontally
+	) {
+		Text("Welcome to the Basics Codelab!")
+		Button(
+			modifier = Modifier.padding(vertical = 24.dp),
+			onClick = onContinueClicked
+		) {
+			Text("Continue")
+		}
+	}
+}
+
+@Composable
+private fun Greetings(
+	modifier: Modifier = Modifier,
+	names: List<String> = listOf("World", "Compose")
+) {
+	Column(modifier = modifier.padding(vertical = 4.dp)) {
+		for (name in names) {
+			Greeting(name = name)
+		}
+	}
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+	BasicCodeLabTheme {
+		OnboardingScreen(onContinueClicked = {})
+	}
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+
+	var expanded by remember { mutableStateOf(false) }
+
+	val extraPadding = if (expanded) 48.dp else 0.dp
+
+	Surface(
+		color = MaterialTheme.colorScheme.primary,
+		modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+	) {
+		Row(modifier = Modifier.padding(24.dp)) {
+			Column(
+				modifier = Modifier
+					.weight(1f)
+					.padding(bottom = extraPadding)
+			) {
+				Text(text = "Hello, ")
+				Text(text = name)
+			}
+			ElevatedButton(
+				onClick = { expanded = !expanded }
+			) {
+				Text(if (expanded) "Show less" else "Show more")
+			}
+		}
+	}
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun GreetingPreview() {
+	BasicCodeLabTheme {
+		Greetings()
+	}
+}
+
+@Preview
+@Composable
+fun MyAppPreview() {
+	BasicCodeLabTheme {
+		MyApp(Modifier.fillMaxSize())
 	}
 }
