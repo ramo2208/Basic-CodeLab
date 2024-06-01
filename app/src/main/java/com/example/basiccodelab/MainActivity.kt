@@ -41,18 +41,34 @@ class MainActivity : ComponentActivity() {
 	}
 
 	@Composable
-	fun OnBoardScreen(modifier: Modifier = Modifier) {
-		var shouldShowOnboarding  by remember { mutableStateOf(true) }
+	fun MyApp(modifier: Modifier = Modifier) {
 
-		Column (
-			modifier = Modifier.fillMaxSize(),
+		var shouldShowOnboarding by remember { mutableStateOf(true) }
+
+		Surface(modifier) {
+			if (shouldShowOnboarding) {
+				OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+			} else {
+				Greetings()
+			}
+		}
+	}
+
+	@Composable
+	fun OnboardingScreen(
+		onContinueClicked: () -> Unit,
+		modifier: Modifier = Modifier
+	) {
+
+		Column(
+			modifier = modifier.fillMaxSize(),
 			verticalArrangement = Arrangement.Center,
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			Text("Welcome to the basic code lab")
+			Text("Welcome to the Basics Code lab!")
 			Button(
 				modifier = Modifier.padding(vertical = 24.dp),
-				onClick = { shouldShowOnboarding = false }
+				onClick = onContinueClicked
 			) {
 				Text("Continue")
 			}
@@ -60,21 +76,32 @@ class MainActivity : ComponentActivity() {
 	}
 
 	@Composable
-	fun MyApp(
+	private fun Greetings(
 		modifier: Modifier = Modifier,
 		names: List<String> = listOf("World", "Compose")
 	) {
-		Column(modifier) {
+		Column(modifier = modifier.padding(vertical = 4.dp)) {
 			for (name in names) {
 				Greeting(name = name)
 			}
 		}
 	}
 
+	@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+	@Composable
+	fun OnboardingPreview() {
+		BasicCodeLabTheme {
+			OnboardingScreen(onContinueClicked = {})
+		}
+	}
+
 	@Composable
 	fun Greeting(name: String, modifier: Modifier = Modifier) {
-		val expanded = remember { mutableStateOf(false) }
-		val extraPadding = if (expanded.value) 48.dp else 0.dp
+
+		var expanded by remember { mutableStateOf(false) }
+
+		val extraPadding = if (expanded) 48.dp else 0.dp
+
 		Surface(
 			color = MaterialTheme.colorScheme.primary,
 			modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
@@ -85,31 +112,23 @@ class MainActivity : ComponentActivity() {
 						.weight(1f)
 						.padding(bottom = extraPadding)
 				) {
-					Text(text = "Hello ")
+					Text(text = "Hello, ")
 					Text(text = name)
 				}
 				ElevatedButton(
-					onClick = { expanded.value = !expanded.value }
+					onClick = { expanded = !expanded }
 				) {
-					Text(if (expanded.value) "Show less" else "Show more")
+					Text(if (expanded) "Show less" else "Show more")
 				}
 			}
 		}
 	}
 
-	@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-	@Composable
-	fun OnBoardScreenPreview(){
-		BasicCodeLabTheme {
-			OnBoardScreen()
-		}
-	}
-
-	@Preview(showBackground = true)
+	@Preview(showBackground = true, widthDp = 320)
 	@Composable
 	fun GreetingPreview() {
 		BasicCodeLabTheme {
-			MyApp()
+			Greetings()
 		}
 	}
 }
